@@ -1,20 +1,20 @@
 # dow30
 Retrieve and display DOW 30 stocks in a webpage.
 
-#Built on 
-- Red Hat Enterprise Linux Server release 7.3 (Maipo)
+##Built on 
+Red Hat Enterprise Linux Server release 7.3 (Maipo)
 
-# Run with
-- ansible 2.2.1.0
+## Run with
+ansible 2.2.1.0
 
-#Requirements
-- hosts configured with passwordless ssh
+##Requirements
+hosts configured with passwordless ssh
 
-#Instructions
-- Alter the hosts file to include the addresses of your 3 hosts
-- Run full_stack.yml
+##Instructions
+Alter the hosts file to include the addresses of your 3 hosts
+Run full_stack.yml
 
-#Notes
+##Notes
 
 
 ##Improvements

@@ -1,0 +1,4 @@
+---
+- hosts: localhost
+  tasks:
+    - script: files/fetch_data.sh

@@ -4,7 +4,6 @@
   vars_files:
     - vars/main.yml
   tasks:
-#    - name:Export from db
     - name: File copy (from mysqlmaster to local)
       copy: src=/tmp/dow30.html dest=/tmp/dow30.html
 
@@ -19,8 +18,6 @@
 
 - hosts: webserver
   become: yes
-  vars_files:
-    - vars/main.yml
   tasks:
     - name: File copy (from local to webserver)
       copy: src=/tmp/dow30.html dest=/var/www/dow30/dow30.html
