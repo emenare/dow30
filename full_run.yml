@@ -3,24 +3,23 @@
   become: yes
   vars_files:
     - vars/main.yml
+  roles:
+    - { role: geerlingguy.mysql }
   tasks:
-#    - name:Export from db
     - name: File copy (from mysqlmaster to local)
       copy: src=/tmp/dow30.html dest=/tmp/dow30.html
 
 - hosts: webserver
   become: yes
+  vars_files:
+    - vars/main.yml
+  roles:
+    - { role: geerlingguy.apache }
   tasks:
     - name: Ensures /var/www/dow30 dir exists
       file: path=/var/www/dow30 state=directory
             mode=0775
             owner=apache
             group=apache
-
-- hosts: webserver
-  become: yes
-  vars_files:
-    - vars/main.yml
-  tasks:
     - name: File copy (from local to webserver)
       copy: src=/tmp/dow30.html dest=/var/www/dow30/dow30.html

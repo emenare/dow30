@@ -7,10 +7,10 @@
     - name: Copy Remote-To-Remote (from mysqlmaster to local)
       synchronize: src=/tmp/copy.txt dest=/tmp/copy.txt mode=pull
 
-- hosts: webserver2
+- hosts: webserver
   become: yes
   vars_files:
     - vars/main.yml
   tasks:
-    - name: Copy Remote-To-Remote (from local to webserver2)
+    - name: Copy Remote-To-Remote (from local to webserver)
       synchronize: src=/tmp/copy.txt dest=/tmp/copy.txt

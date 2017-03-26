@@ -1,4 +1,4 @@
-webserver ansible_ssh_host=ec2-184-72-198-217.compute-1.amazonaws.com ansible_ssh_user=ec2-user
-webserver2 ansible_ssh_host=ec2-34-203-208-68.compute-1.amazonaws.com ansible_ssh_user=ec2-user
+localhost ansible_connection=local
+webserver ansible_ssh_host=ec2-34-203-208-68.compute-1.amazonaws.com ansible_ssh_user=ec2-user
 mysqlmaster ansible_ssh_host=ec2-54-162-108-154.compute-1.amazonaws.com ansible_ssh_user=ec2-user
 mysqlslave ansible_ssh_host=ec2-54-173-141-25.compute-1.amazonaws.com ansible_ssh_user=ec2-user
