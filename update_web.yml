@@ -1,0 +1,12 @@
+---
+- hosts: webserver2
+  become: yes
+  tasks:
+    - name: Ensures /var/www/dow30 dir exists
+      file: path=/var/www/dow30 state=directory
+            mode=0775
+            owner=apache
+            group=apache
+    - name: File copy
+      copy: src=files/dow30.html dest=/var/www/dow30/dow30.html
+      

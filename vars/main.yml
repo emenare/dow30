@@ -1,0 +1,13 @@
+mysql_root_password: root
+mysql_databases:
+  - name: dow30
+    encoding: latin1
+    collation: latin1_general_ci
+mysql_users:
+  - name: dow30
+    host: "%"
+    password: dow30
+    priv: "example_db.*:ALL"
+apache_listen_port: 80
+apache_vhosts:
+  - {servername: "dow30", documentroot: "/var/www/dow30"}
