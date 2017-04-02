@@ -7,7 +7,7 @@ mysql_users:
   - name: dow30
     host: "%"
     password: dow30
-    priv: "example_db.*:ALL"
+    priv: "dow30.*:ALL"
 apache_listen_port: 80
 apache_vhosts:
   - {servername: "dow30", documentroot: "/var/www/dow30"}

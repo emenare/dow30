@@ -1,0 +1,29 @@
+---
+- hosts: mysqlmaster
+#- hosts: mysqlmaster,mysqlslave
+  tasks:
+  - name: fix db perms for dow30 user
+    command: >
+      mysql --user=root --password=root dow30
+      --host=127.0.0.1 --batch --skip-column-names
+      --execute="GRANT ALL ON dow30.* TO 'dow30r'@'%'; \
+                 GRANT ALL ON dow30 TO 'dow30'@'%'; \
+                 GRANT CREATE ON dow30 TO 'dow30'@'%';"
+    register: stuff
+    check_mode: no
+    changed_when: False
+
+  - name: fix db perms for ec2-user user
+    command: >
+      mysql --user=root --password=root dow30
+      --host=127.0.0.1 --batch --skip-column-names
+      --execute="CREATE USER ec2-user
+                 GRANT ALL ON dow30.* TO 'dow30r'@'%'; \
+                 GRANT ALL ON dow30 TO 'dow30'@'%'; \
+                 GRANT CREATE ON dow30 TO 'dow30'@'%';"
+    register: stuff
+    check_mode: no
+    changed_when: False
+
+
+mysql -p -u[user] [database] < backup-file.sql

@@ -5,3 +5,4 @@
     - vars/main.yml
   roles:
     - { role: geerlingguy.mysql }
+    mysql_replication_role=master

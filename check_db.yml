@@ -1,0 +1,16 @@
+---
+- hosts: mysqlmaster
+#- hosts: mysqlmaster,mysqlslave
+  tasks:
+  - name: Retrieve stuff from mysql
+    command: >
+      mysql --user=dow30 --password=dow30 dow30
+      --host=127.0.0.1 --batch --skip-column-names
+      --execute="show tables;"
+    register: query 
+    check_mode: no
+    changed_when: False
+
+  - name: show query
+    debug: "{{ item }}"
+    with_items: query.stdout_lines
