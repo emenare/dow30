@@ -8,6 +8,12 @@ mysql_users:
     host: "%"
     password: dow30
     priv: "dow30.*:ALL"
+#mysql_replication_master_host: mysqlmaster
+mysql_replication_master_host: ec2-54-162-108-154.compute-1.amazonaws.com
+mysql_replication_user:
+  name: dow30
+  host: "%"
+  password: dow30
 apache_listen_port: 80
 apache_vhosts:
   - {servername: "dow30", documentroot: "/var/www/dow30"}
