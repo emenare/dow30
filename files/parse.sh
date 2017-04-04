@@ -8,9 +8,9 @@ if [ -z "$1" ]
     exit 1
 fi
 
-if [ -f $wrkdir/sql.dump.csv ]
+if [ -f $wrkdir/stockdata.csv ]
   then
-    rm $wrkdir/sql.dump.csv
+    rm $wrkdir/stockdata.csv
 fi
 
 while IFS= read -r line; do
@@ -18,5 +18,5 @@ while IFS= read -r line; do
   sym=$(echo $line| grep -i -e '</\?TABLE\|</\?TD\|</\?TR\|</\?TH' | sed 's/^[\ \t]*//g' | tr -d '\n' | sed 's/<\/TR[^>]*>/\n/Ig'  |egrep -v "table|div"|awk -F = '{print $4}'|sed 's/" class//'|sed 's/"wsod_stream">//'|sed 's/<\/span.*//')
   name=$(echo $line|grep -i -e '</\?TABLE\|</\?TD\|</\?TR\|</\?TH' | sed 's/^[\ \t]*//g' | tr -d '\n' | sed 's/<\/TR[^>]*>/\n/Ig'  |egrep -v "table|div"|awk -F = '{print $6}'|sed 's/<\/span.*//'|sed 's/.*>//')
   price=$(echo $line| grep -i -e '</\?TABLE\|</\?TD\|</\?TR\|</\?TH' | sed 's/^[\ \t]*//g' | tr -d '\n' | sed 's/<\/TR[^>]*>/\n/Ig'  |egrep -v "table|div"|awk -F = '{print $9}'|sed 's/" class//'|sed 's/"wsod_stream">//'|sed 's/<\/span.*//')
-  echo "\"$sym,\"$name\",$price,\"$html\"" >> $wrkdir/sql.dump.csv
+  echo "\"$sym,\"$name\",$price,\"$html\"" >> $wrkdir/stockdata.csv
 done < "$1"

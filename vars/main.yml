@@ -1,19 +1,8 @@
-mysql_root_password: root
-mysql_databases:
-  - name: dow30
-    encoding: latin1
-    collation: latin1_general_ci
-mysql_users:
-  - name: dow30
-    host: "%"
-    password: dow30
-    priv: "dow30.*:ALL"
-#mysql_replication_master_host: mysqlmaster
-mysql_replication_master_host: ec2-54-162-108-154.compute-1.amazonaws.com
+mysql_replication_master_host: "{{  hosts['mysqlmaster'] }}"
 mysql_replication_user:
-  name: dow30
-  host: "%"
-  password: dow30
+  - name: root
+    host: "%"
+    password: root
 apache_listen_port: 80
 apache_vhosts:
   - {servername: "dow30", documentroot: "/var/www/dow30"}

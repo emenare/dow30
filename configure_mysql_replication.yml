@@ -4,34 +4,38 @@
   vars_files:
     - vars/main.yml
   tasks:
-  - name: generate server-id
-    shell: hostname -I | sed -e 's/ \+\([a-z0-9]\+\:\)\+[a-z0-9]\+//' | sed -e 's/ /\n/' | grep -v '^$' | tail -1 | awk -F. '{print $3 * 256 + $4}'
-    register: mysql_server_id
+    - name: generate server-id
+      shell: hostname -I | sed -e 's/ \+\([a-z0-9]\+\:\)\+[a-z0-9]\+//' | sed -e 's/ /\n/' | grep -v '^$' | tail -1 | awk -F. '{print $3 * 256 + $4}'
+      register: mysql_server_id
 
-  - name: check replication slave status
-    mysql_replication: mode=getslave
-    ignore_errors: true
-    register: slave
+    - name: check replication slave status
+      mysql_replication: 
+        mode: getslave
+        ignore_errors: true
+        register: slave
   
-  - name: get master replication status
-    mysql_replication: mode=getmaster login_user=dow30 login_password=dow30
-    delegate_to: "{{ hosts['mysqlmaster'] }}"
-    register: replication
-    when: slave|failed
+    - name: get master replication status
+      mysql_replication: 
+        mode: getmaster 
+        login_user: root 
+        login_password: root
+      delegate_to: "{{ hosts['mysqlmaster'] }}"
+      register: replication
+      when: slave|failed
 
-  - name: # Get master binlog file name and binlog position
-    mysql_replication:
-    mode: getmaster
-    register: mysql_master_log_info
+    - name: get master binlog file name and binlog position
+      mysql_replication:
+        mode: getmaster
+      register: mysql_master_log_info
 
 - hosts: mysqlslave
   become: yes
   vars_files:
     - vars/main.yml
   tasks:
-  - name: define master in slave
-    mysql_replication: mode=changemaster master_host={{ hosts['mysqlmaster'] }} master_log_file= mysql-bin.000001 master_log_pos=1 master_user=dow30 master_password=dow30
-    when: slave|failed
+    - name: define master in slave
+      mysql_replication: mode=changemaster master_host={{ hosts['mysql-master'] }} master_log_file={{ replication.File }} master_log_pos={{ replication.Position }} master_user=root master_password=root
+      when: slave|failed
 
-  - name: start slave
-    mysql_replication: mode=startslave
+    - name: start slave
+      mysql_replication: mode=startslave

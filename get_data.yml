@@ -2,3 +2,4 @@
 - hosts: localhost
   tasks:
     - script: files/fetch_data.sh
+    - script: files/parse.sh files/dow30.html

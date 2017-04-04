@@ -9,20 +9,20 @@
         dest: /tmp
     - name: Copy csv to mysqlmaster
       copy:
-        src: files/sql.dump.csv
+        src: files/stockdata.csv
         dest: /tmp
 
     - name: Retrieve stuff from mysql
       command: >
-        mysql --user=dow30 --password=dow30 dow30
+        mysql --user=root --password=root dow30
         --host=127.0.0.1 --batch --skip-column-names
         --execute="source /tmp/create_table.sql"
 
     - name: Load sql in data from file
       command: >
-        mysql --user=dow30 --password=dow30 dow30
+        mysql --user=root --password=root dow30
         --host=127.0.0.1 --batch --skip-column-names
-        --execute="LOAD DATA LOCAL INFILE '/tmp/sql.dump.csv'
+        --execute="LOAD DATA LOCAL INFILE '/tmp/stockdata.csv'
                    INTO TABLE stocks
                    COLUMNS TERMINATED BY ','
                    LINES TERMINATED BY '\n'

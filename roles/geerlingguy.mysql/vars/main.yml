@@ -4,7 +4,12 @@ mysql_databases:
     encoding: latin1
     collation: latin1_general_ci
 mysql_users:
-  - name: dow30
+  - name: root
     host: "%"
-    password: dow30
-    priv: "example_db.*:ALL"
+    password: root
+    priv: "dow30.*:ALL"
+mysql_replication_master_host: "{{  hosts['mysqlmaster'] }}"
+mysql_replication_user:
+  - name: root
+    host: "%"
+    password: root
